@@ -16,6 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/vendor
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
