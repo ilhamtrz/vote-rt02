@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('user', function(){
+    return view('user_election');
+});
+
+Route::get('calon', function(){
+    return view('calon');
+});
+
+Route::get('success_vote', function(){
+    return view('success_vote');
+});
