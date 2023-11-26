@@ -4,6 +4,6 @@
 
     </div> --}}
     <div class="content">
-      <h2>Ini Calon</h2>
+      <h2>Ini Kartu Keluarga</h2>
     </div>
 @endsection

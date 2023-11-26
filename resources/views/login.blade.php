@@ -15,5 +15,6 @@
                 </div>
             </form>
         </div>
-    </div> 
-@endsection 
+    </div>
+@endsection
+{{-- https://news.appdev.my.id/ --}}

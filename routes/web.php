@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +18,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function(){
+    return view('dashboard');
+});
+
+Route::get('/pemilihan', function(){
+    return view('pemilihan');
+});
+
+Route::get('/calon', function(){
+    return view('calon');
+});
+
+Route::get('/kartu_keluarga', function(){
+    return view('kk');
+});
+
+
 Route::get('user', function(){
     return view('user_election');
 });
 
-Route::get('calon', function(){
-    return view('calon');
+Route::get('calon_pilih', function(){
+    return view('calon_pilih');
 });
 
 Route::get('success_vote', function(){
     return view('success_vote');
 });
+
+Route::resource('/posts', PostController::class);

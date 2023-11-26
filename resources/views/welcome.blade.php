@@ -39,7 +39,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="nav-link text-white">
+                  <a href="{{ url('/coba') }}" class="nav-link text-white">
                     <i class="bi bi-flag-fill me-2" style="font-size: 1rem; color: white;"></i>
                     Pemilihan
                   </a>
