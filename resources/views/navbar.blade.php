@@ -12,7 +12,7 @@
         </a>
       </li>
       <li>
-        <a href="{{ url('/pemilihan') }}" class="nav-link text-white {{ (request()->is('pemilihan')) ? 'active' : '' }}">
+        <a href="{{ url('/votes') }}" class="nav-link text-white {{ (request()->is('votes*')) ? 'active' : '' }}">
           <i class="bi bi-flag-fill me-2" style="font-size: 1rem; color: white;"></i>
           Pemilihan
         </a>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('deskripsi');
             $table->string('periode', 30);
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

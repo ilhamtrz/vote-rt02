@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +23,9 @@ Route::get('/dashboard', function(){
     return view('dashboard');
 });
 
-Route::get('/pemilihan', function(){
-    return view('pemilihan');
-});
+// Route::get('/pemilihan', function(){
+//     return view('pemilihan');
+// });
 
 Route::get('/calon', function(){
     return view('calon');
@@ -48,3 +49,4 @@ Route::get('success_vote', function(){
 });
 
 Route::resource('/posts', PostController::class);
+Route::resource('/votes', VoteController::class);
