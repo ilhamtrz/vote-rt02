@@ -101,6 +101,20 @@ class VoteController extends Controller
         return redirect()->route('votes.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
+    public function endvotes($id): RedirectResponse
+    {
+        //get vote by ID
+        $vote = Vote::findOrFail($id);
+        $vote->update([
+            'deskripsi' => $vote->deskripsi,
+            'periode'   => $vote->periode,
+            'status'    => true
+        ]);
+
+        //redirect to index
+        return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
+    }
+
     /**
      * destroy
      *

@@ -23,9 +23,16 @@
                         <td>{{ $vote->periode }}</td>
                         <td>{{ ($vote->status)? 'Selesai' : 'Proses' }}</td>
                         <td class="text-center">
+                            <a href="{{ route('votes.show', $vote->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                            <a href="{{ route('votes.edit', $vote->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                            @if (!$vote->status)
+                                <form onsubmit="return confirm('Apakah Anda Yakin Mengakhiri Pemilihan ?');" action="{{ route('endvotes', $vote->id) }}" method="POST">
+                                    @method('PUT')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-warning">AKHIRI</button>
+                                </form>
+                            @endif
                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('votes.destroy', $vote->id) }}" method="POST">
-                                <a href="{{ route('votes.show', $vote->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                <a href="{{ route('votes.edit', $vote->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

@@ -32,8 +32,6 @@
                         </div>
                     @enderror
                 </div>
-                <input type="hidden" name="status" value=true>
-
                 <button type="submit" class="btn btn-md btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-md btn-warning">Reset</button>
 

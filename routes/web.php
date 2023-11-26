@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\VoteController;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function(){
+    Debugbar::info('Wokee');
     return view('dashboard');
 });
 
@@ -47,6 +49,8 @@ Route::get('calon_pilih', function(){
 Route::get('success_vote', function(){
     return view('success_vote');
 });
+
+Route::put('endvotes/{id}', 'App\Http\Controllers\VoteController@endvotes')->name('endvotes');
 
 Route::resource('/posts', PostController::class);
 Route::resource('/votes', VoteController::class);
