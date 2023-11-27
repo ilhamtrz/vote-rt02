@@ -24,7 +24,7 @@
         </a>
       </li>
       <li>
-        <a href="{{ url('/kartu_keluarga') }}" class="nav-link text-white {{ (request()->is('kartu_keluarga')) ? 'active' : '' }}">
+        <a href="{{ url('/identityCards') }}" class="nav-link text-white {{ (request()->is('identityCards*')) ? 'active' : '' }}">
           <i class="bi bi-person-vcard-fill me-2" style="font-size: 1rem; color: white;"></i>
           Kartu Keluarga
         </a>

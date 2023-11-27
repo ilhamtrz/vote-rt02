@@ -108,7 +108,7 @@ class CandidateController extends Controller
         $this->validate($request, [
             'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'no_kk'     => 'required|numeric|digits:16',
-            'nama'      => 'required|max:50|min:1'
+            'nama'      => 'required|max:50'
         ]);
 
         //get Candidate by ID

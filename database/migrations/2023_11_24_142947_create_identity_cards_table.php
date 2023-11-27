@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('identity_cards', function (Blueprint $table) {
             $table->id();
-            $table->integer('no_kk');
-            $table->string('kepala_keluarga', 40);
+            $table->bigInteger('no_kk');
+            $table->string('kepala_keluarga', 50);
             $table->timestamps();
         });
     }

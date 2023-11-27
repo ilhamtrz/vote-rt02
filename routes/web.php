@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\IdentityCardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\VoteController;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -57,3 +58,4 @@ Route::put('endvotes/{id}', 'App\Http\Controllers\VoteController@endvotes')->nam
 Route::resource('/posts', PostController::class);
 Route::resource('/votes', VoteController::class);
 Route::resource('/candidates', CandidateController::class);
+Route::resource('/identityCards', IdentityCardController::class);
