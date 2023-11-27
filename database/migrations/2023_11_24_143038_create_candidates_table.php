@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->integer('no_kk');
-            $table->string('nama', 40);
-            $table->string('image');
+            $table->bigInteger('no_kk');
+            $table->string('nama', 50);
+            $table->string('image')->nullable(true);;
             $table->timestamps();
         });
     }

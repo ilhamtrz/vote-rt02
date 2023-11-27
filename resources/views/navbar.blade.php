@@ -18,7 +18,7 @@
         </a>
       </li>
       <li>
-        <a href="{{ url('/calon') }}" class="nav-link text-white {{ (request()->is('calon')) ? 'active' : '' }}">
+        <a href="{{ url('/candidates') }}" class="nav-link text-white {{ (request()->is('candidates*')) ? 'active' : '' }}">
           <i class="bi bi-person-fill me-2" style="font-size: 1rem; color: white;"></i>
           Calon
         </a>
