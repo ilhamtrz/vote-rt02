@@ -29,6 +29,12 @@
           Kartu Keluarga
         </a>
       </li>
+      <li>
+        <a href="{{ url('/voterData') }}" class="nav-link text-white {{ (request()->is('voterData*')) ? 'active' : '' }}">
+          <i class="bi bi-check-circle-fill me-2" style="font-size: 1rem; color: white;"></i>
+          Status
+        </a>
+      </li>
     </ul>
     <hr>
     <div class="dropdown">

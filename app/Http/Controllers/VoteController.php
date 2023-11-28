@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vote;
+use App\Models\VoterData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class VoteController extends Controller
@@ -36,10 +38,23 @@ class VoteController extends Controller
             'periode'     => 'required|min:4|max:30'
         ]);
         //create votes
-        Vote::create([
+        $vote = Vote::create([
             'deskripsi' => $request->deskripsi,
             'periode'   => $request->periode
         ]);
+
+        // Get Id
+        $voteId = $vote->value('id');
+
+        $voterData = DB::table('identity_cards')->get();
+        // Masukan data pemilih
+        foreach ($voterData as $data) {
+            VoterData::create([
+                'vote_id'           => $voteId,
+                'identity_card_id'  => $data->id,
+                'status'            => 0
+            ]);
+        }
 
         //redirect to index
         return redirect()->route('votes.index')->with(['success' => 'Data Berhasil Disimpan!']);

@@ -4,6 +4,7 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\IdentityCardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\VoterDataController;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Route;
 
@@ -59,3 +60,4 @@ Route::resource('/posts', PostController::class);
 Route::resource('/votes', VoteController::class);
 Route::resource('/candidates', CandidateController::class);
 Route::resource('/identityCards', IdentityCardController::class);
+Route::get('/voterData', 'App\Http\Controllers\VoterDataController@index');
