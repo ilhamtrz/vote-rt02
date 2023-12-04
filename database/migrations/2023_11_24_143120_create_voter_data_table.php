@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('voter_data', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vote_id')->constrained();
-            $table->foreignId('identity_card_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->boolean('status');
             $table->timestamps();
         });

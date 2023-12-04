@@ -6,8 +6,8 @@
                 <h3 class="text-center my-4">Detail KK</h3>
                 <hr>
             </div>
-            <h4>Nomor KK: {{ $identityCard->no_kk }}</h4>
-            <h4>Kepala Keluarga: {{ $identityCard->kepala_keluarga }}</h4>
+            <h4>Nomor KK: {{ $user->no_kk }}</h4>
+            <h4>Kepala Keluarga: {{ $user->kepala_keluarga }}</h4>
         </div>
     </div>
 @endsection

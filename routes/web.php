@@ -3,6 +3,7 @@
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\IdentityCardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\VoterDataController;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -45,6 +46,7 @@ Route::get('/kartu_keluarga', function(){
 Route::get('user', function(){
     return view('user_election');
 });
+Route::post('user', 'App\Http\Controllers\AuthController@login')->name('login');
 
 Route::get('calon_pilih', function(){
     return view('calon_pilih');
@@ -59,5 +61,5 @@ Route::put('endvotes/{id}', 'App\Http\Controllers\VoteController@endvotes')->nam
 Route::resource('/posts', PostController::class);
 Route::resource('/votes', VoteController::class);
 Route::resource('/candidates', CandidateController::class);
-Route::resource('/identityCards', IdentityCardController::class);
+Route::resource('/users', UserController::class);
 Route::get('/voterData', 'App\Http\Controllers\VoterDataController@index');

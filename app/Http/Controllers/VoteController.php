@@ -46,12 +46,12 @@ class VoteController extends Controller
         // Get Id
         $voteId = $vote->value('id');
 
-        $voterData = DB::table('identity_cards')->get();
+        $voterData = DB::table('users')->get();
         // Masukan data pemilih
         foreach ($voterData as $data) {
             VoterData::create([
                 'vote_id'           => $voteId,
-                'identity_card_id'  => $data->id,
+                'user_id'  => $data->id,
                 'status'            => 0
             ]);
         }

@@ -11,7 +11,7 @@ class VoterData extends Model
 
     protected $fillable = [
         'vote_id',
-        'identity_card_id',
+        'user_id',
         'status'
     ];
 }

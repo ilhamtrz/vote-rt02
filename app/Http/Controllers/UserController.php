@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IdentityCard;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class IdentityCardController extends Controller
+class UserController extends Controller
 {
     public function index():View{
-        $identityCards = IdentityCard::latest()->paginate(5);
-        return view('identityCards.index', compact('identityCards'));
+        $users = User::latest()->paginate(5);
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -20,7 +20,7 @@ class IdentityCardController extends Controller
      * @return View
      */
     public function create():View{
-        return view('identityCards.create');
+        return view('users.create');
     }
 
     /**
@@ -32,11 +32,11 @@ class IdentityCardController extends Controller
     public function store(Request $request):RedirectResponse{
         //validate form
         $this->validate($request, [
-            'no_kk'             => 'required|numeric|digits:16',
+            'no_kk'             => 'unique:users|required|numeric|digits:16',
             'kepala_keluarga'   => 'required|max:50'
         ]);
-        //create IdentityCards
-        $user = IdentityCard::create([
+        //create Users
+        $user = User::create([
             'no_kk'             => $request->no_kk,
             'kepala_keluarga'   => $request->kepala_keluarga
         ]);
@@ -44,7 +44,7 @@ class IdentityCardController extends Controller
         $user->assignRole('user');
 
         //redirect to index
-        return redirect()->route('identityCards.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -55,11 +55,11 @@ class IdentityCardController extends Controller
      */
     public function show(string $id): View
     {
-        //get IdentityCard by ID
-        $identityCard = IdentityCard::findOrFail($id);
+        //get User by ID
+        $user = User::findOrFail($id);
 
-        //render view with IdentityCard
-        return view('identityCards.show', compact('identityCard'));
+        //render view with User
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -70,11 +70,11 @@ class IdentityCardController extends Controller
      */
     public function edit(string $id): View
     {
-        //get IdentityCard by ID
-        $identityCard = IdentityCard::findOrFail($id);
+        //get User by ID
+        $user = User::findOrFail($id);
 
-        //render view with IdentityCard
-        return view('identityCards.edit', compact('identityCard'));
+        //render view with User
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -88,36 +88,36 @@ class IdentityCardController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'no_kk'             => 'required|numeric|digits:16',
+            'no_kk'             => 'unique:users|required|numeric|digits:16',
             'kepala_keluarga'   => 'required|max:50'
         ]);
 
-        //get IdentityCard by ID
-        $identityCard = IdentityCard::findOrFail($id);
-        $identityCard->update([
+        //get User by ID
+        $user = User::findOrFail($id);
+        $user->update([
             'no_kk'             => $request->no_kk,
             'kepala_keluarga'   => $request->kepala_keluarga
         ]);
 
         //redirect to index
-        return redirect()->route('identityCards.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('users.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
      * destroy
      *
-     * @param  mixed $identityCard
+     * @param  mixed $user
      * @return void
      */
     public function destroy($id): RedirectResponse
     {
-        //get IdentityCard by ID
-        $identityCard = IdentityCard::findOrFail($id);
+        //get User by ID
+        $user = User::findOrFail($id);
 
-        //delete IdentityCard
-        $identityCard->delete();
+        //delete User
+        $user->delete();
 
         //redirect to index
-        return redirect()->route('identityCards.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('users.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

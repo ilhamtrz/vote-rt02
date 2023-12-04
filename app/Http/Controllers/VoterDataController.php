@@ -14,8 +14,8 @@ class VoterDataController extends Controller
     public function index():View{
         $voterDatas = DB::table('voter_data')
                         ->join('votes', 'voter_data.vote_id', '=', 'votes.id')
-                        ->join('identity_cards', 'voter_data.identity_card_id', '=', 'identity_cards.id')
-                        ->select('identity_cards.no_kk', 'identity_cards.kepala_keluarga', 'voter_data.status',
+                        ->join('users', 'voter_data.user_id', '=', 'users.id')
+                        ->select('users.no_kk', 'users.kepala_keluarga', 'voter_data.status',
                                 'votes.id', 'votes.deskripsi')->get();
         Debugbar::info($voterDatas);
         return view('voterData.index', compact('voterDatas'));
@@ -64,7 +64,7 @@ class VoterDataController extends Controller
         $voterData = VoterData::findOrFail($id);
 
         //render view with VoterData
-        return view('voterData.show', compact('identityCard'));
+        return view('voterData.show', compact('voterData'));
     }
 
     /**
@@ -79,7 +79,7 @@ class VoterDataController extends Controller
         $voterData = VoterData::findOrFail($id);
 
         //render view with VoterData
-        return view('voterData.edit', compact('identityCard'));
+        return view('voterData.edit', compact('voterData'));
     }
 
     /**

@@ -6,7 +6,7 @@
                 <h3 class="text-center my-4">Kartu Keluarga</h3>
                 <hr>
             </div>
-            <a href="{{ route('identityCards.create') }}" class="btn btn-md btn-success mb-3">Tambah KK</a>
+            <a href="{{ route('users.create') }}" class="btn btn-md btn-success mb-3">Tambah KK</a>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -16,14 +16,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse ($identityCards as $candidate)
+                @forelse ($users as $user)
                     <tr>
-                        <td>{{ $candidate->no_kk }}</td>
-                        <td>{{ $candidate->kepala_keluarga}}</td>
+                        <td>{{ $user->no_kk }}</td>
+                        <td>{{ $user->kepala_keluarga}}</td>
                         <td class="text-center">
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('identityCards.destroy', $candidate->id) }}" method="POST">
-                                <a href="{{ route('identityCards.show', $candidate->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                <a href="{{ route('identityCards.edit', $candidate->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -37,7 +37,7 @@
                 @endforelse
                 </tbody>
             </table>
-            {{ $identityCards->links() }}
+            {{ $users->links() }}
         </div>
     </div>
 @endsection

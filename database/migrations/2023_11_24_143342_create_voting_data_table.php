@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vote_id')->constrained();
             $table->foreignId('candidate_id')->constrained();
-            $table->foreignId('identity_card_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
