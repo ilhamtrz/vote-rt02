@@ -44,10 +44,26 @@
                         </div>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">Visi dan Misi</label>
+                    <textarea class="form-control @error('visi_misi') is-invalid @enderror" name="visi_misi" rows="5" placeholder="Masukkan Konten Post">{{ old('visi_misi') }}</textarea>
+
+                    <!-- error message untuk visi_misi -->
+                    @error('visi_misi')
+                        <div class="alert alert-danger mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <button type="submit" class="btn btn-md btn-primary">Simpan</button>
                 <button type="reset" class="btn btn-md btn-warning">Reset</button>
 
             </form>
         </div>
     </div>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'visi_misi' );
+    </script>
 @endsection

@@ -19,7 +19,11 @@
                     <tr>
                         <td>{{ $data->no_kk }}</td>
                         <td>{{ $data->kepala_keluarga}}</td>
-                        <td>{{ $data->status}}</td>
+                        @if ($data->status == 1)
+                            <td class="text-success">Sudah Memilih</td>
+                        @else
+                            <td>Belum Memilih</td>
+                        @endif
                     </tr>
                 @empty
                     <div class="alert alert-danger">

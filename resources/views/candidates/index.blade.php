@@ -13,6 +13,7 @@
                     <th scope="col">Foto</th>
                     <th scope="col">Nomor Kartu Keluarga</th>
                     <th scope="col">Nama Calon</th>
+                    <th scope="col">Visi & Misi</th>
                     <th scope="col">Aksi</th>
                 </tr>
                 </thead>
@@ -28,6 +29,7 @@
                         </td>
                         <td>{{ $candidate->no_kk }}</td>
                         <td>{{ $candidate->nama}}</td>
+                        <td>{!! $candidate->visi_misi !!}</td>
                         <td class="text-center">
                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('candidates.destroy', $candidate->id) }}" method="POST">
                                 <a href="{{ route('candidates.show', $candidate->id) }}" class="btn btn-sm btn-dark">SHOW</a>

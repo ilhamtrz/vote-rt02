@@ -12,6 +12,7 @@ class Candidate extends Model
     protected $fillable = [
         'no_kk',
         'nama',
-        'image'
+        'image',
+        'visi_misi'
     ];
 }

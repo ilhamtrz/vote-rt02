@@ -65,6 +65,7 @@ Route::get('user_voted', function(){
 // });
 
 Route::put('endvotes/{id}', 'App\Http\Controllers\VoteController@endvotes')->name('endvotes');
+Route::put('startvotes/{id}', 'App\Http\Controllers\VoteController@startvotes')->name('startvotes');
 Route::post('voting/', 'App\Http\Controllers\VoteController@voteCandidate')->name('voting');
 
 Route::resource('/posts', PostController::class);

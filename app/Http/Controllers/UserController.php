@@ -10,7 +10,7 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     public function index():View{
-        $users = User::latest()->paginate(5);
+        $users = User::latest()->paginate(10);
         return view('users.index', compact('users'));
     }
 
@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'no_kk'             => 'unique:users|required|numeric|digits:16',
+            'no_kk'             => 'required|numeric|digits:16',
             'kepala_keluarga'   => 'required|max:50'
         ]);
 

@@ -40,23 +40,10 @@ class VoteController extends Controller
             'periode'     => 'required|min:4|max:30'
         ]);
         //create votes
-        $vote = Vote::create([
+        Vote::create([
             'deskripsi' => $request->deskripsi,
             'periode'   => $request->periode
         ]);
-
-        // Get Id
-        $voteId = $vote->value('id');
-
-        $voterData = DB::table('users')->get();
-        // Masukan data pemilih
-        foreach ($voterData as $data) {
-            VoterData::create([
-                'vote_id'           => $voteId,
-                'user_id'  => $data->id,
-                'status'            => 0
-            ]);
-        }
 
         //redirect to index
         return redirect()->route('votes.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -143,18 +130,45 @@ class VoteController extends Controller
         $vote->update([
             'deskripsi' => $vote->deskripsi,
             'periode'   => $vote->periode,
-            'status'    => true
+            'status'    => 3
         ]);
 
         //redirect to index
         return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
     }
 
+    public function startvotes($id): RedirectResponse
+    {
+        $voterData = DB::table('users')->get();
+        // Admin tidak masuk pemilihan
+        unset($voterData[0]);
+        // Masukan data pemilih
+        foreach ($voterData as $data) {
+            VoterData::create([
+                'vote_id'   => $id,
+                'user_id'   => $data->id,
+                'status'    => 0
+            ]);
+        }
+
+        //get vote by ID
+        $vote = Vote::findOrFail($id);
+        $vote->update([
+            'deskripsi' => $vote->deskripsi,
+            'periode'   => $vote->periode,
+            'status'    => 2
+        ]);
+
+        //redirect to index
+        return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
+    }
+
+
     public function voteCandidate(Request $request)
     {
         // Pilih vote yang aktif saja
         $voteActiveId = DB::table('votes')
-            ->where('status', '=', 0)
+            ->where('status', '=', 2)
             ->get()->first()->id;
 
         $userId = Auth::user()->id;
@@ -163,6 +177,13 @@ class VoteController extends Controller
             'vote_id'       => $voteActiveId,
             'candidate_id'  => $request->candidate,
             'user_id'       => $userId
+        ]);
+
+        $voterData = VoterData::findOrFail($userId);
+        $voterData->update([
+            'vote_id'   => $voterData->vote_id,
+            'user_id'   => $voterData->user_id,
+            'status'    => 1
         ]);
 
         Auth::logout();

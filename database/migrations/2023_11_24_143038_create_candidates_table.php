@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('no_kk');
             $table->string('nama', 50);
             $table->string('image')->nullable(true);;
+            $table->text('visi_misi');
             $table->timestamps();
         });
     }

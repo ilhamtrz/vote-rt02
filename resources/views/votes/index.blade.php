@@ -21,11 +21,24 @@
                     <tr>
                         <td>{{ $vote->deskripsi }}</td>
                         <td>{{ $vote->periode }}</td>
-                        <td>{{ ($vote->status)? 'Selesai' : 'Proses' }}</td>
+                        <td>    @if ($vote->status == 1)
+                                    Belum Berjalan
+                                @elseif ($vote->status == 2)
+                                    Sedang Berjalan
+                                @else
+                                    Selesai
+                                @endif
+                        </td>
                         <td class="text-center">
                             <a href="{{ route('votes.show', $vote->id) }}" class="btn btn-sm btn-dark">SHOW</a>
                             <a href="{{ route('votes.edit', $vote->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                            @if (!$vote->status)
+                            @if ($vote->status == 1)
+                                <form onsubmit="return confirm('Apakah Anda Yakin Memulai Pemilihan ?');" action="{{ route('startvotes', $vote->id) }}" method="POST">
+                                    @method('PUT')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-success">MULAI</button>
+                                </form>
+                            @elseif ($vote->status == 2)
                                 <form onsubmit="return confirm('Apakah Anda Yakin Mengakhiri Pemilihan ?');" action="{{ route('endvotes', $vote->id) }}" method="POST">
                                     @method('PUT')
                                     @csrf

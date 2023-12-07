@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('deskripsi');
             $table->string('periode', 30);
-            $table->boolean('status')->default(false);
+            // 1 Belum Berjalan; 2 Sedang Berjalan; 3 Selesai
+            $table->enum('status', [1,2,3])->default(1);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class CandidateController extends Controller
 {
     public function index():View{
-        $candidates = Candidate::latest()->paginate(5);
+        $candidates = Candidate::latest()->paginate(3);
         return view('candidates.index', compact('candidates'));
     }
 
@@ -37,7 +37,8 @@ class CandidateController extends Controller
         $this->validate($request, [
             'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'no_kk'     => 'required|numeric|digits:16',
-            'nama'      => 'required|max:50'
+            'nama'      => 'required|max:50',
+            'visi_misi'   => 'required|min:10'
         ]);
 
         if ($request->image){
@@ -49,7 +50,8 @@ class CandidateController extends Controller
             Candidate::create([
                 'image'     => $image->hashName(),
                 'no_kk'     => $request->no_kk,
-                'nama'      => $request->nama
+                'nama'      => $request->nama,
+                'visi_misi'   => $request->visi_misi
             ]);
         }
         else {
@@ -57,7 +59,8 @@ class CandidateController extends Controller
             Candidate::create([
                 'image'     => null,
                 'no_kk'     => $request->no_kk,
-                'nama'      => $request->nama
+                'nama'      => $request->nama,
+                'visi_misi'   => $request->visi_misi
             ]);
         }
 
@@ -107,7 +110,8 @@ class CandidateController extends Controller
         $this->validate($request, [
             'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'no_kk'     => 'required|numeric|digits:16',
-            'nama'      => 'required|max:50'
+            'nama'      => 'required|max:50',
+            'visi_misi'   => 'required|min:10'
         ]);
 
         //get Candidate by ID
@@ -124,14 +128,16 @@ class CandidateController extends Controller
             $candidate->update([
                 'image'     => $image->hashName(),
                 'no_kk'     => $request->no_kk,
-                'nama'      => $request->nama
+                'nama'      => $request->nama,
+                'visi_misi'   => $request->visi_misi
             ]);
         }
         else{
             //update tanpa gambar
             $candidate->update([
                 'no_kk'     => $request->no_kk,
-                'nama'      => $request->nama
+                'nama'      => $request->nama,
+                'visi_misi'   => $request->visi_misi
             ]);
         }
 

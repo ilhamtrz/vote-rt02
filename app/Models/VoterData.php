@@ -14,4 +14,6 @@ class VoterData extends Model
         'user_id',
         'status'
     ];
+
+    protected $primaryKey = 'user_id';
 }

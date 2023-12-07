@@ -14,6 +14,10 @@
             <hr>
             <h4>Nomor KK Calon: {{ $candidate->no_kk }}</h4>
             <h4>Nama Calon: {{ $candidate->nama }}</h4>
+            <h4>Visi dan Misi: </h4>
+            <p class="tmt-3">
+                {!! $candidate->visi_misi !!}
+            </p>
         </div>
     </div>
 @endsection
