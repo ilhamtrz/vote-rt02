@@ -166,10 +166,9 @@ class CandidateController extends Controller
         return redirect()->route('candidates.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 
-    public function getCandidates()
+    public function getCandidates(): View
     {
-        return view('calon_pilih');
-        // Buat middleware auth gak boleh masuk menu login dan
-        // buat menu route untuk sudah milih dan logout dan selesai milih seperti biasa
+        $candidates = DB::table('candidates')->get();;
+        return view('calon_pilih', compact('candidates'));
     }
 }

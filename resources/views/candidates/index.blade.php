@@ -22,7 +22,7 @@
                     <tr>
                         <td class="text-center">
                             @if($candidate->image)
-                                <img src="{{ asset('/storage/candidates/'.$candidate->image) }}" class="rounded" style="width: 200px">:
+                                <img src="{{ asset('/storage/candidates/'.$candidate->image) }}" class="rounded" style="width: 200px">
                             @else
                                 <i class="bi bi-file-image" style="font-size: 200px"></i>
                             @endif

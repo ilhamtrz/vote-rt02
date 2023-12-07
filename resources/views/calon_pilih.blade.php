@@ -26,74 +26,59 @@
                 font-size: 20px;
                 font-weight: bold;
             }
+            .row img{
+                height: 280px;
+            }
+            .row div{
+                min-width: 200px;
+            }
         </style>
     </head>
     <body>
         <div class="box">
             <div class="inner-box px-5">
-                <div class="row gx-5 d-flex justify-content-center">
-                    <div class="col-xl-3 col-lg-4 col-md-5 col-md-4 col-sm-6">
-                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#calon1">
-                            <div class="card border-primary border-2 p-0">
-                                <img src="https://w0.peakpx.com/wallpaper/506/624/HD-wallpaper-iron-man-ironman-vector-vector-art.jpg" class="card-img-top" alt="tony-stark">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary">Bapak Ilham</h5>
+                <div class="row gy-5 d-flex justify-content-center">
+                    @forelse ($candidates as $candidate)
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-md-3 col-sm-6 d-flex align-items-stretch justify-content-center" data-bs-toggle="modal" data-bs-target="#Calon{{$candidate->id}}">
+                        <div class="card border-primary border-2">
+                            @if($candidate->image)
+                                <img src="{{ asset('/storage/candidates/'.$candidate->image) }}" class="rounded card-img-top">
+                            @else
+                                <i class="bi bi-file-image card-img-top" style="font-size: 200px"></i>
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{$candidate->nama}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="Calon{{$candidate->id}}" aria-labelledby="Calon{{$candidate->id}}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail {{$candidate->nama}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {!! $candidate->visi_misi !!}
+                                    <h6>Apakah Anda Yakin Memilih {{$candidate->nama}} ?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <form action="{{route('voting')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input name="candidate" type="hidden" value={{$candidate->id}}>
+                                        <button type="submit" class="btn btn-primary">Ya</button>
+                                    </form>
                                 </div>
                             </div>
-                        </button>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
-                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#calon2">
-                            <div class="card border-primary border-2 p-0">
-                                <img src="https://w0.peakpx.com/wallpaper/506/624/HD-wallpaper-iron-man-ironman-vector-vector-art.jpg" class="card-img-top" alt="tony-stark">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary">Bapak Ilham</h5>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-
-                    {{-- Modal --}}
-              <div class="modal fade" id="calon1" aria-labelledby="calon1Label" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Calon 1</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">Apakah Anda Yakin?</div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <form action="{{route('voting')}}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input name="candidate" type="hidden" value=1>
-                                <button type="submit" class="btn btn-primary">Ya</button>
-                            </form>
                         </div>
                     </div>
-                </div>
-            </div>
-                <div class="modal fade" id="calon2" aria-labelledby="calon2Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Calon 2</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">Apakah Anda Yakin?</div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <form action="{{route('voting')}}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input name="candidate" type="hidden" value=2>
-                                    <button type="submit" class="btn btn-primary">Ya</button>
-                                </form>
-                            </div>
+                    @empty
+                        <div class="alert alert-danger">
+                            Data Calon Kosong.
                         </div>
-                    </div>
+                    @endforelse
                 </div>
-                </div>
-
             </div>
           </div>
 
