@@ -42,7 +42,7 @@
     <body>
         <div class="box">
             <div class="inner-box">
-                <span class="button-text">Terima Kasih Sudah Memilih</span>
+                <span class="button-text">Anda Sudah Memilih</span>
             </div>
             <script>
                 setTimeout(function() {

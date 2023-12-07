@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\VoterData;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +16,6 @@ class VoterDataController extends Controller
                         ->join('users', 'voter_data.user_id', '=', 'users.id')
                         ->select('users.no_kk', 'users.kepala_keluarga', 'voter_data.status',
                                 'votes.id', 'votes.deskripsi')->get();
-        Debugbar::info($voterDatas);
         return view('voterData.index', compact('voterDatas'));
     }
 

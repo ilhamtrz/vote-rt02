@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Vote;
 use App\Models\VoterData;
+use App\Models\VotingData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -116,20 +118,6 @@ class VoteController extends Controller
         return redirect()->route('votes.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    public function endvotes($id): RedirectResponse
-    {
-        //get vote by ID
-        $vote = Vote::findOrFail($id);
-        $vote->update([
-            'deskripsi' => $vote->deskripsi,
-            'periode'   => $vote->periode,
-            'status'    => true
-        ]);
-
-        //redirect to index
-        return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
-    }
-
     /**
      * destroy
      *
@@ -146,5 +134,40 @@ class VoteController extends Controller
 
         //redirect to index
         return redirect()->route('votes.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function endvotes($id): RedirectResponse
+    {
+        //get vote by ID
+        $vote = Vote::findOrFail($id);
+        $vote->update([
+            'deskripsi' => $vote->deskripsi,
+            'periode'   => $vote->periode,
+            'status'    => true
+        ]);
+
+        //redirect to index
+        return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
+    }
+
+    public function voteCandidate(Request $request)
+    {
+        // Pilih vote yang aktif saja
+        $voteActiveId = DB::table('votes')
+            ->where('status', '=', 0)
+            ->get()->first()->id;
+
+        $userId = Auth::user()->id;
+
+        VotingData::create([
+            'vote_id'       => $voteActiveId,
+            'candidate_id'  => $request->candidate,
+            'user_id'       => $userId
+        ]);
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('success_vote');
     }
 }

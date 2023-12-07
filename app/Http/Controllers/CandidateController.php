@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -13,7 +14,6 @@ class CandidateController extends Controller
 {
     public function index():View{
         $candidates = Candidate::latest()->paginate(5);
-        // Debugbar::info($candidates);
         return view('candidates.index', compact('candidates'));
     }
 
@@ -90,7 +90,6 @@ class CandidateController extends Controller
     {
         //get Candidate by ID
         $candidate = Candidate::findOrFail($id);
-        // Debugbar::info($candidate->no_kk);
         //render view with Candidate
         return view('candidates.edit', compact('candidate'));
     }
@@ -113,7 +112,6 @@ class CandidateController extends Controller
 
         //get Candidate by ID
         $candidate = Candidate::findOrFail($id);
-        Debugbar::info($candidate);
         if ($request->hasFile('image')) {
             //upload new image
             $image = $request->file('image');
@@ -160,5 +158,12 @@ class CandidateController extends Controller
 
         //redirect to index
         return redirect()->route('candidates.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function getCandidates()
+    {
+        return view('calon_pilih');
+        // Buat middleware auth gak boleh masuk menu login dan
+        // buat menu route untuk sudah milih dan logout dan selesai milih seperti biasa
     }
 }
