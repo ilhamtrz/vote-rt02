@@ -11,17 +11,27 @@
             .box {
             width: 100%;
             height: 100%;
-            display: table;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             }
-            .inner-box{
-            text-align:center;
-            display:table-cell;
-            vertical-align: middle;
+
+            .inner-box {
+                text-align: center;
+                width: 500px;
             }
             .button-text{
                 font-size: 20px;
                 font-weight: bold;
             }
+            .admin-link {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+        }
         </style>
     </head>
     <body>
@@ -32,18 +42,19 @@
                     <input type="text" name="no_kk" class="form-control text-center border-dark" placeholder="Masukan Nomor Kartu Keluarga">
                     <button type="submit" class="btn btn-primary rounded button-text mt-4">Kirim</button>
                 </form>
+                <a href="{{ route('admin.login') }}" class="admin-link">Admin Login</a>
             </div>
           </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
 
-        <script>
+        {{-- <script>
             //message with toastr
             @if(session()->has('sudah_pilih'))
                 toastr.success('{{ session('error') }}', 'Maaf');
             @endif
-        </script>
+        </script> --}}
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> --}}
     </body>
 </html>

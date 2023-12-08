@@ -33,6 +33,36 @@ class AuthController extends Controller
         // if(!auth()->attempt($data_login)){
         //     return redirect()->back();
         // }
+    }
 
+    public function adminLogin(Request $request){
+        $data_login = [
+            'kepala_keluarga'   =>  $request->kepala_keluarga,
+            'password'          =>  $request->password,
+        ];
+        if(!Auth::attempt($data_login)){
+            return redirect()->back();
+        }
+        return redirect('dashboard');
+    }
+
+    public function adminLogout(){
+        auth()->logout();
+        return redirect('/');
+    }
+
+    public function checkUserVote(){
+        if(Auth::user()){
+            $userId = Auth::user()->id;
+            $isVoted = DB::table('voting_data')
+                ->where('user_id', '=', $userId)->get();
+            $canVote = count($isVoted) == 0 ? true:false;
+            if($canVote){
+                return redirect('voting');
+            } else {
+                Auth::logout();
+                return redirect('user_voted');
+            }
+        }
     }
 }

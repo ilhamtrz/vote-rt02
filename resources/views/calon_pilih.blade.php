@@ -59,6 +59,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <h2>Visi dan Misi</h2>
                                     {!! $candidate->visi_misi !!}
                                     <h6>Apakah Anda Yakin Memilih {{$candidate->nama}} ?</h6>
                                 </div>
