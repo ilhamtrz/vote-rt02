@@ -71,9 +71,7 @@ Route::post('voting/', 'App\Http\Controllers\VoteController@voteCandidate')->mid
 
 Route::middleware('role:admin')->group(function(){
     Route::get('/voterData', 'App\Http\Controllers\VoterDataController@index');
-    Route::get('/dashboard', function(){
-        return view('dashboard');
-    });
+    Route::get('/dashboard', 'App\Http\Controllers\VotingDataController@index');
     Route::resource('/posts', PostController::class);
     Route::resource('/votes', VoteController::class);
     Route::resource('/candidates', CandidateController::class);
