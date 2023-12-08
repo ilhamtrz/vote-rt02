@@ -11,7 +11,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="font-weight-bold">Nomor KK</label>
-                    <input type="text" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }}" placeholder="Masukkan Nomor KK Calon">
+                    <input type="text" class="form-control @error('no_kk') is-invalid @enderror" name="no_kk" value="{{ old('no_kk') }}" placeholder="Masukkan Nomor KK">
 
                     <!-- error message untuk no_kk -->
                     @error('no_kk')

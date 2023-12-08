@@ -138,7 +138,7 @@ class VoteController extends Controller
         $votingDatas = DB::table('voting_data')
             ->join('candidates', 'voting_data.candidate_id', '=', 'candidates.id')
             ->select('candidates.nama', DB::raw('COUNT(*) as total_votes'))
-            ->groupBy('voting_data.candidate_id', 'candidates.nama')
+            ->groupBy('voting_data.candidate_id', 'candidates.id')
             ->get();
 
         foreach($votingDatas as $votingData){
@@ -149,6 +149,7 @@ class VoteController extends Controller
             ]);
         }
         DB::table('voting_data')->truncate();
+        DB::table('voter_data')->truncate();
 
         //redirect to index
         return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);

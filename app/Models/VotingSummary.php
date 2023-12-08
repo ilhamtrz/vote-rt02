@@ -11,7 +11,7 @@ class VotingSummary extends Model
 
     protected $fillable = [
         'vote_id',
-        'candidate_id',
+        'name',
         'count_vote'
     ];
 }
