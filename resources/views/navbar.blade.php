@@ -35,16 +35,16 @@
           Status
         </a>
       </li>
+      <li>
+        <a href="{{ url('/summary') }}" class="nav-link text-white {{ (request()->is('summary*')) ? 'active' : '' }}">
+          <i class="bi bi-clock-history me-2" style="font-size: 1rem; color: white;"></i>
+          Riwayat Pemilihan
+        </a>
+      </li>
     </ul>
     <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{{ URL::asset('assets/images/icon.png') }}" id="icon-utama" alt="Image" style="width: 40px;height:40px"/>
-        <strong>Admin</strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        {{-- <li><hr class="dropdown-divider"></li> --}}
-        <li><a class="dropdown-item" href="{{ url('/logout') }}">Sign out</a></li>
-      </ul>
-    </div>
+    <form action="{{ url('/logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-sm btn-warning">Logout</button>
+    </form>
   </div>

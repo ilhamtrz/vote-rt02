@@ -46,9 +46,11 @@ class AuthController extends Controller
         return redirect('dashboard');
     }
 
-    public function adminLogout(){
+    public function adminLogout(Request $request){
         auth()->logout();
-        return redirect('/');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/admin_login');
     }
 
     public function checkUserVote(){

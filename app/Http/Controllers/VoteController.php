@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vote;
 use App\Models\VoterData;
 use App\Models\VotingData;
+use App\Models\VotingSummary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -132,6 +133,22 @@ class VoteController extends Controller
             'periode'   => $vote->periode,
             'status'    => 3
         ]);
+
+        // add summary
+        $votingDatas = DB::table('voting_data')
+            ->join('candidates', 'voting_data.candidate_id', '=', 'candidates.id')
+            ->select('candidates.nama', DB::raw('COUNT(*) as total_votes'))
+            ->groupBy('voting_data.candidate_id', 'candidates.nama')
+            ->get();
+
+        foreach($votingDatas as $votingData){
+            VotingSummary::create([
+                'vote_id'       =>  $id,
+                'name'          =>  $votingData->nama,
+                'count_vote'    =>  $votingData->total_votes
+            ]);
+        }
+        DB::table('voting_data')->truncate();
 
         //redirect to index
         return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
