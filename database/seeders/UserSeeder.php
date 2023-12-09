@@ -204,5 +204,10 @@ class UserSeeder extends Seeder
             'no_kk'             =>  '3374131212058770'
         ]);
         $user32->assignRole('user');
+        $user33 = User::create([
+            'kepala_keluarga'   =>  'Agus Teguh Sudrajat I',
+            'no_kk'             =>  '3374101412057103'
+        ]);
+        $user33->assignRole('user');
     }
 }
