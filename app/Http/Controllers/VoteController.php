@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use App\Models\Vote;
 use App\Models\VoterData;
 use App\Models\VotingData;
@@ -134,19 +135,25 @@ class VoteController extends Controller
             'status'    => 3
         ]);
 
-        // add summary
-        $votingDatas = DB::table('voting_data')
-            ->join('candidates', 'voting_data.candidate_id', '=', 'candidates.id')
-            ->select('candidates.nama', DB::raw('COUNT(*) as total_votes'))
-            ->groupBy('voting_data.candidate_id', 'candidates.id')
-            ->get();
+        $votingDatas = DB::table('voting_data')->select("candidate_id")->get();
+        $candidates = DB::table('candidates')->select("id", "nama")->get();
 
-        foreach($votingDatas as $votingData){
+        $jumlahNama = [];
+        foreach ($votingDatas as $data) {
+            $nama = $data->candidate_id;
+            if (!isset($jumlahNama[$nama])) {
+                $jumlahNama[$nama] = 1;
+            } else {
+                $jumlahNama[$nama]++;
+            }
+        }
+        // return dd($candidates->nama);
+        foreach($jumlahNama as $nama => $jumlah){
             VotingSummary::create([
                 'vote_id'       =>  $vote->id,
                 'desc'          =>  $vote->deskripsi,
-                'name'          =>  $votingData->nama,
-                'count_vote'    =>  $votingData->total_votes
+                'name'          =>  $candidates[$nama-1]->nama,
+                'count_vote'    =>  $jumlah
             ]);
         }
         DB::table('voting_data')->truncate();
