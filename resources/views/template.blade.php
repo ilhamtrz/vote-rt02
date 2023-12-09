@@ -20,6 +20,7 @@
         }
         main{
             background: white;
+            height: 100vh;
         }
         #icon-utama{
             width: 100px;
@@ -28,14 +29,15 @@
         .content{
           margin: 20px;
           width: 100%;
+          height: 100vh;
           overflow-y: auto;
         }
     </style>
 </head>
 <body>
-    <main class="d-flex flex-nowrap">
+    <main class="d-flex flex-nowrap overflow-hidden">
         @include('navbar')
-        <div class="content">
+        <div class="content m-0 p-4">
             @yield('content')
         </div>
     </main>

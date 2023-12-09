@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class VoteController extends Controller
 {
     public function index():View{
-        $votes = Vote::latest()->paginate(5);
+        $votes = Vote::latest()->paginate(8);
         return view('votes.index', compact('votes'));
     }
 
