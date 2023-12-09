@@ -17,22 +17,28 @@ class AuthController extends Controller
             return redirect()->back();
         }
 
+        $activeVote = DB::table('votes')->where('status', '=', 2)->get();
+        $isVoteActive = (!count($activeVote) == 0);
+
         $userId = Auth::user()->id;
         $isVoted = DB::table('voting_data')
             ->where('user_id', '=', $userId)->get();
         $canVote = count($isVoted) == 0 ? true:false;
-        if($canVote){
-            return redirect('voting');
+        if ($isVoteActive){
+            if($canVote){
+                return redirect('voting');
+            } else {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect('user_voted');
+            }
         } else {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect('user_voted');
-            // return redirect()->back()->with(['sudah_pilih' => 'Anda Sudah Memilih!']);;
+            return redirect('vote_inactive');
         }
-        // if(!auth()->attempt($data_login)){
-        //     return redirect()->back();
-        // }
     }
 
     public function adminLogin(Request $request){

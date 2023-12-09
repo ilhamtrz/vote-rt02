@@ -23,8 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/home', 'App\Http\Controllers\AuthController@checkUserVote')->name('home');
 Route::get('/', function () {
-    // return view('welcome');
-    return view('user_election');
+    return view('login');
 });
 Route::get('/admin_login', function () {
     // return view('welcome');
@@ -45,13 +44,16 @@ Route::get('user_voted', function(){
     return view('user_voted');
 })->middleware('guest');
 
+Route::get('vote_inactive', function(){
+    return view('vote_inactive');
+})->middleware('guest');
+
 Route::post('voting/', 'App\Http\Controllers\VoteController@voteCandidate')->middleware('role:user')->name('voting');
 Route::get('list_summary/{id}', [VotingSummaryController::class, 'getSummary']);
 Route::middleware('role:admin')->group(function(){
     Route::get('/voterData', 'App\Http\Controllers\VoterDataController@index');
     Route::get('/dashboard', 'App\Http\Controllers\VotingDataController@index');
     Route::get('/summary', 'App\Http\Controllers\VotingSummaryController@index');
-    Route::resource('/posts', PostController::class);
     Route::resource('/votes', VoteController::class);
     Route::resource('/candidates', CandidateController::class);
     Route::resource('/users', UserController::class);

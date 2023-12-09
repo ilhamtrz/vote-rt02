@@ -31,16 +31,14 @@
             chart.draw(data, options);
         }
     }
+</script>
+    <script>
+        // Auto Refresh
 
-
-
-    // Auto Refresh
-
-    // function autoRefresh() {
-    //     window.location = window.location.href;
-    //     }
-    //     setInterval('autoRefresh()', 5000);
-    // </script>
-
+        // function autoRefresh() {
+        //     window.location = window.location.href;
+        //     }
+        //     setInterval('autoRefresh()', 5000);
+    </script>
 
 @endsection
