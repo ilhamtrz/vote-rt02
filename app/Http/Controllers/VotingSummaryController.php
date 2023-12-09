@@ -10,11 +10,7 @@ class VotingSummaryController extends Controller
     public function index(){
         //get Id pemilihan dulu
         $votingDatas = DB::table('voting_summaries')->select('vote_id', 'desc')->distinct()->get();
-        // dd($votingDatas);
-        // foreach($votingDatas as $votingData){
-        //     $voteSummaries
-        // }
-        // dd($votingDatas);
+
         return view('voting_summary', compact('votingDatas'));
     }
 

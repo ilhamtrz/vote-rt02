@@ -158,9 +158,27 @@ class VoteController extends Controller
 
     public function startvotes($id): RedirectResponse
     {
+        // cek pemilihan aktif
+        $activeVote = DB::table('votes')->where('status', '=', 2)->get();
+        if(!count($activeVote) == 0){
+            return redirect()->route('votes.index')->with(['error' => 'Sedang Ada Pemilihan Yang Sedang Berjalan']);
+        }
+
         $voterData = DB::table('users')->get();
         // Admin tidak masuk pemilihan
         unset($voterData[0]);
+
+        // Cek Pemilih Aktif
+        if (count($voterData) === 0){
+            return redirect()->route('votes.index')->with(['error' => 'Pemilih Masih Kosong, Tambahkan KK dulu!']);
+        }
+
+        // Cek Calon
+        $candidate = DB::table('candidates')->get();
+        if (count($candidate) == 0){
+            return redirect()->route('votes.index')->with(['error' => 'Calon Masih Kosong, Tambahkan Calon dulu!']);
+        }
+
         // Masukan data pemilih
         foreach ($voterData as $data) {
             VoterData::create([
@@ -179,7 +197,7 @@ class VoteController extends Controller
         ]);
 
         //redirect to index
-        return redirect()->route('votes.index')->with(['success' => 'Pemilihan selesai']);
+        return redirect()->route('votes.index')->with(['success' => 'Pemilihan Dimulai']);
     }
 
 

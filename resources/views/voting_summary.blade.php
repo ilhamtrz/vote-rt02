@@ -2,17 +2,21 @@
 @section('content')
     <h2>Riwayat Pemilihan</h2>
     <select id="voteSelector" class="form-select form-select-lg mb-3" aria-label="Large select example">
-        @foreach ($votingDatas as $votingData)
+        @forelse ($votingDatas as $votingData)
             <option value={{$votingData->vote_id}}>{{$votingData->desc}}</option>
-        @endforeach
+        @empty
+            <option value=0>Tidak Ada Riwayat Pemilihan</option>
+        @endforelse
     </select>
 
     <div id="piechart"></div>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#voteSelector").val(1);
-            showVoteChart(1);
+            var vote = $("#voteSelector option:selected").val();
+            if (!vote == 0){
+                showVoteChart(vote);
+            }
         });
 
         $("#voteSelector").on("change", function(){
@@ -29,25 +33,29 @@
             type: "GET",
             url: "list_summary/" + vote,
             success: function (data) {
-                data.forEach(showSummary)
+                data.forEach(addSummary)
                 // get summary from data
-                function showSummary(item, index){
+                function addSummary(item, index){
                     resultSummary.push([item.name, item.count_vote]);
                 }
+                if(!resultSummary.length){
+                    document.getElementById("piechart").innerHTML = "<h2 class='my-5'>Data Suara Kosong</h2>";
+                    console.log('a')
+                } else {
+                    google.charts.load('current', {'packages':['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
 
-                google.charts.load('current', {'packages':['corechart']});
-                google.charts.setOnLoadCallback(drawChart);
+                    console.log(resultSummary);
+                    function drawChart(){
+                        var data = google.visualization.arrayToDataTable(resultSummary, true);
 
-                console.log(resultSummary);
-                function drawChart(){
-                    var data = google.visualization.arrayToDataTable(resultSummary, true);
+                        // Optional; add a title and set the width and height of the chart
+                        var options = {'width':1100, 'height':800};
 
-                    // Optional; add a title and set the width and height of the chart
-                    var options = {'width':1100, 'height':800};
-
-                    // Display the chart inside the <div> element with id="piechart"
-                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                    chart.draw(data, options);
+                        // Display the chart inside the <div> element with id="piechart"
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                        chart.draw(data, options);
+                    }
                 }
             }
             });

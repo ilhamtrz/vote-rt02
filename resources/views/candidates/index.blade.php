@@ -1,5 +1,6 @@
 @extends('template')
 @section('content')
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <div class="row m-3">
         <div class="col-md-12">
             <div>
@@ -50,4 +51,13 @@
             {{ $candidates->links() }}
         </div>
     </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        //message with toastr
+        @if(session()->has('success'))
+            toastr.success('{{ session('success') }}', 'BERHASIL!');
+        @elseif(session()->has('error'))
+            toastr.error('{{ session('error') }}', 'TIDAK BISA HAPUS CALON!');
+        @endif
+    </script>
 @endsection

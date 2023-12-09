@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\VoterData;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -42,6 +44,18 @@ class UserController extends Controller
         ]);
 
         $user->assignRole('user');
+
+        // tambah ke status pemilihan
+        $activeVote = DB::table('votes')->where('status', '=', 2)->get();
+        if (!count($activeVote) == 0){
+            // return dd($activeVote);
+            VoterData::create([
+                'vote_id'   => $activeVote[0]->id,
+                'user_id'   => $user->id,
+                'status'    => 0
+            ]);
+        }
+
 
         //redirect to index
         return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);

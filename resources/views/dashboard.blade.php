@@ -17,16 +17,22 @@
         chartData.forEach((item) => {
             votingData.push([item.nama, item.total_votes]);
         })
-        console.log(votingData);
-        var data = google.visualization.arrayToDataTable(votingData, true);
+        // console.log(votingData);
+        if(!votingData.length){
+            document.getElementById("piechart").innerHTML = "<h2 class='my-5'>Data Suara Kosong</h2>";
+        } else {
+            var data = google.visualization.arrayToDataTable(votingData, true);
 
-        // Optional; add a title and set the width and height of the chart
-        var options = {'width':1100, 'height':800};
+            // Optional; add a title and set the width and height of the chart
+            var options = {'width':1100, 'height':800};
 
-        // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
     }
+
+
 
     // Auto Refresh
 
@@ -35,5 +41,6 @@
     //     }
     //     setInterval('autoRefresh()', 5000);
     // </script>
+
 
 @endsection

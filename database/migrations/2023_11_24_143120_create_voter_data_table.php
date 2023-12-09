@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('voter_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vote_id')->constrained();
+            $table->foreignId('vote_id')->constrained()
+                ->onDelete('cascade');
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade');
             $table->boolean('status');

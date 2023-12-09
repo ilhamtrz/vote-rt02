@@ -156,6 +156,11 @@ class CandidateController extends Controller
         //get Candidate by ID
         $candidate = Candidate::findOrFail($id);
 
+        $activeVote = DB::table('votes')->where('status', '=', 2)->get();
+        if (!count($activeVote) == 0){
+            return redirect()->route('candidates.index')->with(['error' => 'Masih Ada Pemilihan Yang Berjalan']);
+        }
+
         //delete image
         Storage ::delete('public/candidates/'.$candidate->image);
 
