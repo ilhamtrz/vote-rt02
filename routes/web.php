@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\VotingSummaryController;
 use App\Http\Controllers\VoterDataController;
+use App\Models\VotingSummary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +46,7 @@ Route::get('user_voted', function(){
 })->middleware('guest');
 
 Route::post('voting/', 'App\Http\Controllers\VoteController@voteCandidate')->middleware('role:user')->name('voting');
-
+Route::get('list_summary/{id}', [VotingSummaryController::class, 'getSummary']);
 Route::middleware('role:admin')->group(function(){
     Route::get('/voterData', 'App\Http\Controllers\VoterDataController@index');
     Route::get('/dashboard', 'App\Http\Controllers\VotingDataController@index');

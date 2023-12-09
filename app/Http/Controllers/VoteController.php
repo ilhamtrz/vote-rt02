@@ -143,7 +143,8 @@ class VoteController extends Controller
 
         foreach($votingDatas as $votingData){
             VotingSummary::create([
-                'vote_id'       =>  $id,
+                'vote_id'       =>  $vote->id,
+                'desc'          =>  $vote->deskripsi,
                 'name'          =>  $votingData->nama,
                 'count_vote'    =>  $votingData->total_votes
             ]);
