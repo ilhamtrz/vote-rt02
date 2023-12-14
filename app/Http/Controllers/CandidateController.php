@@ -35,6 +35,7 @@ class CandidateController extends Controller
     public function store(Request $request):RedirectResponse{
         //validate form
         $this->validate($request, [
+            // Image REQUIRED JIKA HOSTING DI 000WEBHOSTAPP
             'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'no_kk'     => 'required|numeric|digits:16',
             'nama'      => 'required|max:50',
@@ -128,6 +129,7 @@ class CandidateController extends Controller
             Storage ::delete('public/candidates/'.$candidate->image);
 
             // CARA DELETE DI HOSTING
+            // Storage::disk('uploads')->delete($candidate->image);
             // Storage::disk('uploads')->delete($candidate->image . '/' . $candidate->image);
 
             //update calon
@@ -170,6 +172,10 @@ class CandidateController extends Controller
         //delete image
         Storage ::delete('public/candidates/'.$candidate->image);
 
+        // CARA DELETE DI HOSTING
+        // Storage::disk('uploads')->delete($candidate->image);
+        // Storage::disk('uploads')->delete($candidate->image . '/' . $candidate->image);
+
         //delete Candidate
         $candidate->delete();
 
@@ -179,7 +185,7 @@ class CandidateController extends Controller
 
     public function getCandidates(): View
     {
-        $candidates = DB::table('candidates')->get();;
+        $candidates = DB::table('candidates')->orderBy('id')->get();;
         return view('calon_pilih', compact('candidates'));
     }
 }
