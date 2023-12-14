@@ -20,5 +20,29 @@ class AdminSeeder extends Seeder
         ]);
 
         $admin->assignRole('admin');
+
+        $admin1 = User::create([
+            'kepala_keluarga'   =>  'admin1',
+            'no_kk'             =>  '9999999999999998',
+            'password'          =>  bcrypt('vote-rt')
+        ]);
+
+        $admin1->assignRole('admin');
+
+        $admin2 = User::create([
+            'kepala_keluarga'   =>  'admin2',
+            'no_kk'             =>  '9999999999999997',
+            'password'          =>  bcrypt('vote-rt')
+        ]);
+
+        $admin2->assignRole('admin');
+
+        $admin3 = User::create([
+            'kepala_keluarga'   =>  'admin3',
+            'no_kk'             =>  '9999999999999996',
+            'password'          =>  bcrypt('vote-rt')
+        ]);
+
+        $admin3->assignRole('admin');
     }
 }

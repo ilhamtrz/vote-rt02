@@ -55,7 +55,18 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        // LINK PHP BUAT GET STORAGE
+        // <?php
+        // $targetFolder = $_SERVER['DOCUMENT_ROOT'].'/storage/app/public';
+        // $linkFolder = $_SERVER['DOCUMENT_ROOT'].'/public/storage';
+        // symlink($targetFolder,$linkFolder);
+        // echo 'Symlink completed';
 
+        // SET UPLOAD PATH
+        // 'uploads' => [
+        //     'driver' => 'local',
+        //     'root'   => '/storage/ssd4/414/21646414/public_html/storage/candidates',
+        //   ],
     ],
 
     /*

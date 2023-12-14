@@ -121,8 +121,14 @@ class CandidateController extends Controller
             $image = $request->file('image');
             $image->storeAs('public/candidates', $image->hashName());
 
+            // CARA UPLOAD DI HOSTING
+            // Storage::disk('uploads')->put($image->hashName(), $image);
+
             //delete old image
             Storage ::delete('public/candidates/'.$candidate->image);
+
+            // CARA DELETE DI HOSTING
+            // Storage::disk('uploads')->delete($candidate->image . '/' . $candidate->image);
 
             //update calon
             $candidate->update([
